@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detail Berita - Portal Berita Nusantara</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#d50000',
+            secondary: '#212121',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-lg">PB</span>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold text-primary">Portal Berita Nusantara</h1>
+            <p class="text-sm text-gray-600">Sumber berita terkini, terpercaya, dan mudah diakses</p>
+          </div>
+        </div>
+        <a href="index.html" class="text-primary hover:text-red-700 font-medium">← Kembali ke Beranda</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- News Detail Content -->
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <article class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <!-- Main Image -->
+      <div class="relative">
+        <img id="news-image" src="https://picsum.photos/800/400?random=1" alt="News Image" class="w-full h-64 md:h-96 object-cover">
+        <div id="video-duration" class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded hidden">
+          05:30
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="p-6 md:p-8">
+        <!-- Category & Date -->
+        <div class="flex items-center space-x-4 mb-4">
+          <span id="news-category" class="bg-red-100 text-primary px-3 py-1 rounded-full text-sm font-medium">Kategori</span>
+          <span id="news-date" class="text-gray-500 text-sm">Tanggal</span>
+          <span class="text-gray-500 text-sm">Oleh: Redaksi</span>
+        </div>
+
+        <!-- Title -->
+        <h1 id="news-title" class="text-2xl md:text-3xl font-bold text-secondary mb-6 leading-tight">
+          Judul Berita
+        </h1>
+
+        <!-- Video (if available) -->
+        <div id="video-container" class="mb-6 hidden">
+          <div class="aspect-video bg-black rounded-lg overflow-hidden">
+            <iframe id="news-video" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- Full Content -->
+        <div id="news-content" class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+          <p>Konten berita lengkap akan dimuat di sini...</p>
+        </div>
+
+        <!-- Share & Related -->
+        <div class="mt-8 pt-6 border-t border-gray-200">
+          <div class="flex items-center justify-between">
+            <div class="flex space-x-4">
+              <button class="text-gray-500 hover:text-primary transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <button class="text-gray-500 hover:text-primary transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
+                </svg>
+              </button>
+            </div>
+            <span class="text-sm text-gray-500">Baca: 1,234 kali</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Related News -->
+    <section class="mt-8">
+      <h3 class="text-xl font-bold text-secondary mb-4">Berita Terkait</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow cursor-pointer">
+          <img src="https://picsum.photos/300/200?random=2" alt="Related" class="w-full h-32 object-cover rounded mb-3">
+          <h4 class="font-semibold text-sm line-clamp-2">Berita terkait lainnya</h4>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow cursor-pointer">
+          <img src="https://picsum.photos/300/200?random=3" alt="Related" class="w-full h-32 object-cover rounded mb-3">
+          <h4 class="font-semibold text-sm line-clamp-2">Berita terkait lainnya</h4>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow cursor-pointer">
+          <img src="https://picsum.photos/300/200?random=4" alt="Related" class="w-full h-32 object-cover rounded mb-3">
+          <h4 class="font-semibold text-sm line-clamp-2">Berita terkait lainnya</h4>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-secondary text-white mt-12">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-lg font-bold mb-4">Portal Berita Nusantara</h3>
+          <p class="text-gray-300 text-sm">Sumber berita terkini dan terpercaya sepanjang masa.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Kategori</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><a href="#" class="hover:text-white">Nasional</a></li>
+            <li><a href="#" class="hover:text-white">Ekonomi</a></li>
+            <li><a href="#" class="hover:text-white">Olahraga</a></li>
+            <li><a href="#" class="hover:text-white">Teknologi</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Layanan</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><a href="#" class="hover:text-white">Tentang Kami</a></li>
+            <li><a href="#" class="hover:text-white">Kontak</a></li>
+            <li><a href="#" class="hover:text-white">Kebijakan Privasi</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Ikuti Kami</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-white">FB</a>
+            <a href="#" class="text-gray-300 hover:text-white">TW</a>
+            <a href="#" class="text-gray-300 hover:text-white">IG</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">
+        <p>&copy; 2025 Portal Berita Nusantara. Seluruh hak cipta dilindungi undang-undang.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // News data (in a real app, this would come from an API)
+    const newsData = [
+      {
+        id: 1,
+        title: "Presiden resmikan proyek infrastruktur baru",
+        category: "Nasional",
+        date: "28 Sep 2025",
+        image: "https://picsum.photos/800/400?random=4",
+        summary: "Presiden meresmikan proyek infrastruktur strategis di Jakarta yang diharapkan meningkatkan konektivitas.",
+        content: "Presiden Republik Indonesia hari ini meresmikan proyek infrastruktur strategis nasional yang telah lama dinantikan masyarakat. Proyek ini mencakup pembangunan jalan tol, jembatan, dan sarana transportasi lainnya yang akan menghubungkan berbagai wilayah di Indonesia. Dengan adanya infrastruktur ini, diharapkan dapat meningkatkan konektivitas antar daerah, memperlancar distribusi logistik, dan mendorong pertumbuhan ekonomi nasional. Proyek ini merupakan bagian dari komitmen pemerintah untuk membangun Indonesia yang lebih maju dan sejahtera.",
+        hasVideo: false
+      },
+      {
+        id: 2,
+        title: "Teknologi AI mulai digunakan di sektor pendidikan",
+        category: "Pendidikan",
+        date: "28 Sep 2025",
+        image: "https://picsum.photos/800/400?random=5",
+        summary: "Kecerdasan buatan kini diadopsi untuk mendukung kegiatan pembelajaran di seluruh sekolah.",
+        content: "Kementerian Pendidikan dan Kebudayaan telah mengimplementasikan teknologi kecerdasan buatan (AI) dalam sistem pembelajaran nasional. Teknologi ini akan membantu guru dalam menyusun materi pembelajaran yang lebih personal dan adaptif terhadap kebutuhan siswa. AI juga akan digunakan untuk menganalisis performa siswa dan memberikan rekomendasi pembelajaran yang lebih efektif. Program ini merupakan langkah maju dalam modernisasi pendidikan Indonesia menuju era digital.",
+        hasVideo: false
+      },
+      {
+        id: 3,
+        title: "Kasus naturalisasi kontroversial memunculkan pertanyaan",
+        category: "Olahraga",
+        date: "28 Sep 2025",
+        image: "https://picsum.photos/800/400?random=6",
+        summary: "Sanksi FIFA terhadap pemain memicu perdebatan tentang prosedur naturalisasi.",
+        content: "Federasi Sepakbola Internasional (FIFA) telah menjatuhkan sanksi terhadap pemain naturalisasi yang diduga melanggar regulasi internasional. Kasus ini memicu perdebatan hangat di kalangan pengamat olahraga nasional mengenai prosedur naturalisasi pemain asing. Beberapa pihak menilai bahwa regulasi yang ada perlu diperketat untuk menjaga fairness dalam kompetisi. Sementara pihak lain berpendapat bahwa naturalisasi merupakan hak setiap negara untuk memperkuat tim nasionalnya.",
+        hasVideo: false
+      },
+      {
+        id: 4,
+        title: "Padang terapkan rencana pengelolaan sampah kota baru",
+        category: "Daerah",
+        date: "27 Sep 2025",
+        image: "https://picsum.photos/800/400?random=7",
+        summary: "Pejabat kota memperkenalkan langkah baru untuk meningkatkan penanganan dan daur ulang sampah.",
+        content: "Pemerintah Kota Padang meluncurkan program pengelolaan sampah terintegrasi yang lebih modern dan efektif. Program ini mencakup pembangunan tempat pembuangan sementara, pengadaan armada pengangkut sampah baru, serta edukasi masyarakat tentang pentingnya pengelolaan sampah yang baik. Dengan program ini, diharapkan dapat mengurangi volume sampah yang mencemari lingkungan dan meningkatkan kesadaran masyarakat akan pentingnya hidup bersih dan sehat.",
+        hasVideo: false
+      },
+      {
+        id: 5,
+        title: "Pertumbuhan triwulanan menunjukkan tanda pemulihan",
+        category: "Ekonomi",
+        date: "26 Sep 2025",
+        image: "https://picsum.photos/800/400?random=8",
+        summary: "Data ekonomi baru menunjukkan pemulihan moderat di beberapa sektor.",
+        content: "Badan Pusat Statistik (BPS) melaporkan adanya tanda-tanda pemulihan ekonomi nasional pada triwulan terakhir. Beberapa sektor seperti manufaktur, perdagangan, dan jasa mengalami pertumbuhan positif. Meskipun masih ada tantangan berupa inflasi dan ketidakpastian global, namun indikator ekonomi makro menunjukkan tren yang menggembirakan. Pemerintah optimis bahwa momentum pemulihan ini dapat dipertahankan dengan kebijakan yang tepat sasaran.",
+        hasVideo: false
+      },
+      {
+        id: 6,
+        title: "Festival kembali dengan kerumunan besar",
+        category: "Hiburan",
+        date: "25 Sep 2025",
+        image: "https://picsum.photos/800/400?random=9",
+        summary: "Festival seni tahunan menarik pengunjung dan seniman dari seluruh wilayah.",
+        content: "Festival seni budaya tahunan kembali digelar dengan kemeriahan luar biasa. Acara yang berlangsung selama tiga hari ini berhasil menarik ribuan pengunjung dari berbagai daerah. Berbagai pertunjukan seni, workshop, dan pameran berhasil menghibur dan mendidik masyarakat tentang kekayaan budaya Indonesia. Para seniman dari berbagai daerah berkontribusi dalam acara ini, menjadikannya sebagai ajang silaturahmi dan promosi budaya nasional.",
+        hasVideo: false
+      },
+      {
+        id: 7,
+        title: "Presiden Hadiri Rapat Kabinet Pembangunan Ekonomi Digital",
+        category: "Nasional",
+        date: "29 Sep 2025",
+        image: "https://picsum.photos/800/400?random=10",
+        summary: "Presiden memimpin rapat kabinet membahas strategi percepatan transformasi digital nasional.",
+        content: "Presiden memimpin rapat kabinet membahas strategi percepatan transformasi digital nasional. Agenda ini mencakup pengembangan infrastruktur digital dan peningkatan literasi masyarakat di era industri 4.0. Rapat tersebut menghasilkan beberapa kebijakan penting untuk mendorong inovasi teknologi dan memperkuat ekosistem digital Indonesia. Para menteri terkait berkomitmen untuk mensinergikan program-program mereka agar target transformasi digital dapat tercapai sesuai jadwal.",
+        hasVideo: false
+      },
+      {
+        id: 8,
+        title: "Harga Minyak Dunia Naik, Pengaruh Terhadap Pasar Indonesia",
+        category: "Ekonomi",
+        date: "29 Sep 2025",
+        image: "https://picsum.photos/800/400?random=11",
+        summary: "Kenaikan harga minyak dunia berdampak signifikan terhadap inflasi domestik.",
+        content: "Kenaikan harga minyak dunia berdampak signifikan terhadap inflasi domestik. Pemerintah mengantisipasi dengan diversifikasi energi terbarukan dan penguatan cadangan devisa nasional. Para ahli ekonomi memprediksi bahwa kenaikan harga BBM akan mempengaruhi berbagai sektor ekonomi, mulai dari transportasi hingga industri manufaktur. Pemerintah telah menyiapkan berbagai skenario untuk menjaga stabilitas harga dan meminimalkan dampak negatif terhadap masyarakat.",
+        hasVideo: false
+      },
+      {
+        id: 9,
+        title: "Timnas U-23 Persiapkan Diri untuk Laga Persahabatan Internasional",
+        category: "Olahraga",
+        date: "29 Sep 2025",
+        image: "https://picsum.photos/800/400?random=12",
+        summary: "Skuad Garuda Muda intensif menjalani pemusatan latihan di Jakarta.",
+        content: "Skuad Garuda Muda intensif menjalani pemusatan latihan di Jakarta. Pelatih fokus pada pengembangan strategi permainan dan fisik pemain menghadapi turnamen regional mendatang. Para pemain menjalani program latihan yang ketat untuk meningkatkan kemampuan individu dan tim. PSSI berharap bahwa persiapan matang ini akan membuahkan hasil optimal dalam ajang internasional mendatang.",
+        hasVideo: false
+      },
+      {
+        id: 10,
+        title: "Startup Lokal Luncurkan Aplikasi AI untuk UMKM",
+        category: "Teknologi",
+        date: "29 Sep 2025",
+        image: "https://picsum.photos/800/400?random=13",
+        summary: "Inovasi teknologi kecerdasan buatan membantu pelaku usaha kecil menengah.",
+        content: "Inovasi teknologi kecerdasan buatan membantu pelaku usaha kecil menengah. Aplikasi ini menyediakan analisis pasar otomatis dan rekomendasi strategi pemasaran berbasis data. Startup lokal berhasil menciptakan solusi teknologi yang affordable dan mudah digunakan oleh UMKM. Dengan bantuan AI, pelaku usaha dapat membuat keputusan yang lebih tepat dan meningkatkan efisiensi operasional bisnis mereka.",
+        hasVideo: false
+      },
+      {
+        id: 11,
+        title: "Film Indonesia Raih Kesuksesan di Box Office Nasional",
+        category: "Hiburan",
+        date: "29 Sep 2025",
+        image: "https://picsum.photos/800/400?random=14",
+        summary: "Karya sinema tanah air mencatat rekor penonton tertinggi sepanjang tahun.",
+        content: "Karya sinema tanah air mencatat rekor penonton tertinggi sepanjang tahun. Film ini mengangkat tema keberagaman budaya dan mendapat apresiasi dari kritikus film internasional. Para sineas Indonesia berhasil membuktikan bahwa industri film nasional mampu bersaing di kancah global. Kesuksesan ini diharapkan dapat mendorong pertumbuhan industri kreatif dan meningkatkan citra positif Indonesia di mata dunia.",
+        hasVideo: false
+      },
+      {
+        id: 12,
+        title: "Dunia Soroti Kebijakan Energi Baru Terbarukan Indonesia",
+        category: "Internasional",
+        date: "29 Sep 2025",
+        image: "https://picsum.photos/800/400?random=15",
+        summary: "Komitmen Indonesia dalam transisi energi mendapat perhatian global.",
+        content: "Komitmen Indonesia dalam transisi energi mendapat perhatian global. Negara-negara maju memberikan dukungan teknis untuk pengembangan panel surya dan turbin angin skala besar. Konferensi internasional tentang perubahan iklim memberikan sorotan khusus terhadap upaya Indonesia dalam mengurangi emisi karbon. Dukungan internasional ini diharapkan dapat mempercepat transisi energi Indonesia menuju masa depan yang lebih hijau dan berkelanjutan.",
+        hasVideo: false
+      }
+    ];
+
+    // Get URL parameters
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      const results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Load news detail
+    function loadNewsDetail() {
+      const newsId = parseInt(getUrlParameter('id'));
+      const news = newsData.find(item => item.id === newsId);
+
+      if (news) {
+        document.getElementById('news-image').src = news.image;
+        document.getElementById('news-title').textContent = news.title;
+        document.getElementById('news-category').textContent = news.category;
+        document.getElementById('news-date').textContent = news.date;
+        document.getElementById('news-content').innerHTML = `<p>${news.content}</p>`;
+
+        // Update page title
+        document.title = `${news.title} - Portal Berita Nusantara`;
+
+        // Handle video if available
+        if (news.hasVideo) {
+          document.getElementById('video-container').classList.remove('hidden');
+          // You can set video URL here if needed
+        }
+      } else {
+        document.getElementById('news-title').textContent = 'Berita tidak ditemukan';
+        document.getElementById('news-content').innerHTML = '<p>Maaf, berita yang Anda cari tidak tersedia.</p>';
+      }
+    }
+
+    // Load news detail when page loads
+    document.addEventListener('DOMContentLoaded', loadNewsDetail);
+  </script>
+
+</body>
+</html>

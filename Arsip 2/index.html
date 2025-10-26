@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal Berita Nusantara</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#d50000',
+            secondary: '#212121',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Basic styling -->
+  <style>
+    :root{
+      --primary:#d50000; /* dominant red */
+      --secondary:#212121; /* dark gray */
+      --muted:#f5f5f5; /* light gray */
+      --text:#212121; /* dark gray for text */
+      --max-width:1100px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Poppins', Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+      line-height:1.45;
+      min-height: 100vh;
+    }
+
+    header.site-header{
+      background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+      border-bottom:2px solid var(--primary);
+      padding:20px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 16px;
+    }
+
+    .brand{
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
+    .brand h1{
+      margin:0;
+      font-size:28px;
+      color:var(--primary);
+      font-weight:700;
+    }
+    .brand p{
+      margin:0;
+      color:var(--secondary);
+      font-size:14px;
+      font-weight:500;
+    }
+
+    /* NAVBAR */
+    nav.navbar{
+      background: #b30000;
+      color:#fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      height: 65px;
+      display: flex;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+    }
+    nav .container{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width: 100%;
+      max-width: none;
+      padding:10px 50px;
+      height: 100%;
+      margin: 0;
+    }
+
+    .nav-left, .nav-right{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      height: 100%;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:16px;
+      list-style:none;
+      margin:0;
+      padding:0;
+      align-items:center;
+      flex-wrap:nowrap;
+    }
+
+    .nav-links a{
+      color:#fff;
+      text-decoration:none;
+      padding:8px 16px;
+      border-radius:6px;
+      font-weight:500;
+      font-size:14px;
+      transition: all 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      background: #fff;
+      color: #b30000;
+      text-decoration: underline;
+    }
+
+    .burger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* search */
+    .search {
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .search input{
+      padding:8px 10px;
+      border-radius:6px;
+      border:0;
+      width:180px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .search button{
+      padding:8px 10px;
+      border-radius:6px;
+      border:0;
+      background:#fff;
+      color:#b30000;
+      font-weight:600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    /* layout */
+    .main-grid{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:20px;
+      margin:18px auto;
+      max-width:var(--max-width);
+      padding:0 16px;
+    }
+
+    /* latest news full width section */
+    .latest-news-fullwidth{
+      width: 100%;
+      background: #f9f9f9;
+      padding: 40px 30px;
+      margin-top: 40px;
+    }
+    .latest-news-container{
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .latest-news-container h2{
+      color: var(--primary);
+      font-size: 28px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    /* hero slider */
+    .slider{
+      background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+      padding:20px;
+      border-radius:12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .slides{
+      position:relative;
+      overflow:hidden;
+      border-radius:10px;
+      min-height:300px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .slides img{
+      width:100%;
+      height:400px;
+      object-fit:cover;
+      display:block;
+      transition: transform 0.5s ease;
+    }
+    .slider-controls{
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      margin-top:8px;
+    }
+    .slider-controls button{
+      padding:8px 16px;
+      border-radius:8px;
+      border:2px solid var(--primary);
+      background:#fff;
+      color:var(--primary);
+      cursor:pointer;
+      font-weight:600;
+      transition: all 0.3s ease;
+    }
+    .slider-controls button:hover{
+      background:var(--primary);
+      color:#fff;
+      transform: translateY(-2px);
+    }
+
+    /* sidebar */
+    aside.sidebar{
+      background:#f9f9f9;
+      border:1px solid #e0e0e0;
+      padding:20px;
+      border-radius:12px;
+      height:fit-content;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .sponsor{
+      background:linear-gradient(90deg,#f8d7da,#e7f6f6);
+      padding:10px;
+      border-radius:6px;
+      text-align:center;
+    }
+
+    /* article list */
+    .articles{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:24px;
+      margin-top:20px;
+    }
+    article.card{
+      border:1px solid #e0e0e0;
+      border-radius:16px;
+      overflow:hidden;
+      background:#fff;
+      display:flex;
+      flex-direction:column;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      padding: 0;
+    }
+    article.card:hover{
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    }
+    .card img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      display:block;
+      transition: transform 0.3s ease;
+    }
+    .card:hover img{
+      transform: scale(1.03);
+    }
+    .card .content{
+      padding:20px;
+      flex-grow:1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card h3{
+      margin:0 0 10px 0;
+      font-size:20px;
+      color:var(--secondary);
+      font-weight:700;
+      line-height:1.3;
+      position: relative;
+      padding-top: 12px;
+    }
+    .card h3::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .meta{
+      font-size:13px;
+      color:#888;
+      margin-bottom:12px;
+      font-weight:500;
+    }
+    .card p{
+      margin:0 0 15px 0;
+      color:#555;
+      line-height:1.5;
+      flex-grow:1;
+    }
+    .read-more{
+      display:inline-block;
+      background:var(--primary);
+      color:#fff;
+      padding:10px 20px;
+      border-radius:6px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+      text-align: center;
+    }
+    .read-more:hover{
+      background:#b71c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(213, 0, 0, 0.3);
+    }
+
+
+    /* footer */
+    footer.site-footer{
+      background: var(--secondary);
+      color: #fff;
+      padding: 40px 16px 20px;
+      margin-top: 50px;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      gap: 40px;
+    }
+    .footer-section h3 {
+      margin: 0 0 15px 0;
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-links li {
+      margin-bottom: 8px;
+    }
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #555;
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    /* live news section */
+    .live-news {
+      margin: 30px auto;
+      padding: 30px;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+      border: 2px solid #e0e0e0;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      max-width: 800px;
+      text-align: center;
+    }
+    .live-news h2 {
+      margin: 0 0 15px 0;
+      color: var(--primary);
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .live-news p {
+      margin: 0 0 20px 0;
+      color: var(--secondary);
+      font-size: 16px;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #000;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* responsive */
+    @media (max-width:980px){
+      .main-grid{ grid-template-columns: 1fr; }
+      .articles{
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      .slides img{ height:300px; }
+      aside.sidebar{ order:2; }
+      .live-news {
+        padding: 20px;
+        margin: 20px 16px;
+      }
+      .live-news h2 {
+        font-size: 24px;
+      }
+      .latest-news-fullwidth{
+        padding: 20px 20px;
+      }
+      .latest-news-container h2{
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      .footer-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .brand {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+      }
+      .nav-left, .nav-right {
+        width: 100%;
+      }
+      .nav-links {
+        justify-content: center;
+      }
+      .search {
+        justify-content: center;
+      }
+      .burger {
+        display: block;
+      }
+      nav .container {
+        padding: 10px 20px;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        right: 0;
+        background: #b30000;
+        padding: 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      }
+      .nav-links.show {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <section class="relative bg-cover bg-center bg-no-repeat overflow-hidden"
+           style="background-image: url('https://i.etsystatic.com/21502201/r/il/6dac78/6763972492/il_fullxfull.6763972492_qr6a.jpg'); min-height: 25vh;">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center py-8 md:py-12 animate-fade-in">
+      <h1 class="text-white text-4xl md:text-5xl font-black" style="font-family: 'Poppins', sans-serif;">
+        Portal Berita <span class="text-red-500">Nusantara</span>
+      </h1>
+      <p class="text-gray-200 mt-2 text-base md:text-lg font-medium" style="font-family: 'Poppins', sans-serif;">
+        Menyajikan Berita Aktual, Nasional, dan Daerah
+      </p>
+    </div>
+  </section>
+
+  <!-- Navbar -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-left flex items-center gap-4">
+        <div class="w-8 h-8 bg-white bg-opacity-20 rounded flex items-center justify-center">
+          <span class="text-white font-bold text-sm">PN</span>
+        </div>
+        <button class="burger" id="burgerBtn" aria-label="Toggle navigation menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#" data-cat="all" class="active">Beranda</a></li>
+          <li><a href="#" data-cat="national">Nasional</a></li>
+          <li><a href="#" data-cat="economy">Ekonomi</a></li>
+          <li><a href="#" data-cat="sports">Olahraga</a></li>
+          <li><a href="#" data-cat="religion">Agama</a></li>
+          <li><a href="#" data-cat="technology">Teknologi</a></li>
+          <li><a href="#" data-cat="entertainment">Hiburan</a></li>
+          <li><a href="#" data-cat="local">Daerah</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-right">
+        <div class="search" role="search">
+          <input type="search" id="searchInput" placeholder="Cari berita..." aria-label="Cari berita">
+          <button id="searchBtn">Cari</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main layout -->
+  <div class="main-grid" role="main">
+    <div>
+      <!-- Hero / Slider -->
+      <section class="slider">
+        <div class="slides" id="slides">
+          <!-- images (use local files or URLs). onerror fallback will replace missing images -->
+          <img src="https://picsum.photos/800/360?random=1" alt="Berita Utama 1" data-index="0" onerror="imgFallback(this)">
+        </div>
+
+        <div class="slider-controls" aria-hidden="false">
+          <button type="button" data-src="https://picsum.photos/800/360?random=1">1</button>
+          <button type="button" data-src="https://picsum.photos/800/360?random=2">2</button>
+          <button type="button" data-src="https://picsum.photos/800/360?random=3">3</button>
+        </div>
+
+        <!-- Live News Section -->
+        <section class="live-news">
+          <h2>Berita Langsung TV One</h2>
+          <p>Tonton siaran berita terkini langsung dari TV One News.</p>
+          <div class="video-container">
+            <iframe width="100%" height="400"
+              src="https://www.youtube.com/embed/yNKvkPJl-tg"
+              title="TV One Live News"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Sidebar">
+      <div class="sponsor" role="complementary" style="margin-bottom:12px;">
+        <h3 style="margin:6px 0">Banner Sponsor</h3>
+        <img src="https://picsum.photos/300/140?random=10" alt="Banner sponsor" style="width:100%;height:140px;object-fit:cover;border-radius:6px" onerror="imgFallback(this)">
+        <p style="font-size:13px;margin-top:8px;color:#444">Beriklan bersama kami — jangkau ribuan pembaca setiap hari.</p>
+      </div>
+
+      <section style="margin-bottom:12px;">
+        <h4 style="margin:6px 0">Kategori Populer</h4>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onclick="filterCategory('local')" style="padding:6px 8px;border-radius:6px;border:1px solid #eee;background:#fff;cursor:pointer">Daerah</button>
+          <button onclick="filterCategory('national')" style="padding:6px 8px;border-radius:6px;border:1px solid #eee;background:#fff;cursor:pointer">Nasional</button>
+          <button onclick="filterCategory('technology')" style="padding:6px 8px;border-radius:6px;border:1px solid #eee;background:#fff;cursor:pointer">Teknologi</button>
+        </div>
+      </section>
+
+      <section>
+        <h4 style="margin:6px 0">Tentang</h4>
+        <p style="font-size:13px;color:#666">Portal Berita Nusantara — portal berita demo yang menyajikan berita lokal dan nasional dengan standar editorial.</p>
+      </section>
+    </aside>
+  </div>
+
+  <!-- Latest News Section - Full Width -->
+  <section class="latest-news-fullwidth">
+    <div class="latest-news-container">
+      <h2 class="text-3xl font-bold text-primary text-center mb-8">Berita Terbaru</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-10" id="articles">
+
+          <!-- Example cards with data-category attributes -->
+          <a href="news-detail.html?id=1" class="block no-underline text-inherit cursor-pointer" data-category="national">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=4" alt="Proyek infrastruktur" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-landmark text-red-600"></i>
+                  Presiden resmikan proyek infrastruktur baru
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Nasional</span>
+                  <span>28 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Presiden meresmikan proyek infrastruktur strategis di Jakarta yang diharapkan meningkatkan konektivitas.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=2" class="block no-underline text-inherit cursor-pointer" data-category="technology">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=5" alt="AI di pendidikan" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-microchip text-blue-600"></i>
+                  Teknologi AI mulai digunakan di sektor pendidikan
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Pendidikan</span>
+                  <span>28 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Kecerdasan buatan kini diadopsi untuk mendukung kegiatan pembelajaran di seluruh sekolah.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=3" class="block no-underline text-inherit cursor-pointer" data-category="sports">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=6" alt="Kasus naturalisasi" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-futbol text-green-600"></i>
+                  Kasus naturalisasi kontroversial memunculkan pertanyaan
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Olahraga</span>
+                  <span>28 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Sanksi FIFA terhadap pemain memicu perdebatan tentang prosedur naturalisasi.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=4" class="block no-underline text-inherit cursor-pointer" data-category="local">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=7" alt="Berita daerah Padang" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-map-marker-alt text-orange-600"></i>
+                  Padang terapkan rencana pengelolaan sampah kota baru
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Daerah</span>
+                  <span>27 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Pejabat kota memperkenalkan langkah baru untuk meningkatkan penanganan dan daur ulang sampah.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=5" class="block no-underline text-inherit cursor-pointer" data-category="economy">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=8" alt="Laporan ekonomi" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-chart-line text-green-600"></i>
+                  Pertumbuhan triwulanan menunjukkan tanda pemulihan
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Ekonomi</span>
+                  <span>26 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Data ekonomi baru menunjukkan pemulihan moderat di beberapa sektor.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=6" class="block no-underline text-inherit cursor-pointer" data-category="entertainment">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=9" alt="Berita hiburan" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-film text-orange-600"></i>
+                  Festival kembali dengan kerumunan besar
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Hiburan</span>
+                  <span>25 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Festival seni tahunan menarik pengunjung dan seniman dari seluruh wilayah.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=7" class="block no-underline text-inherit cursor-pointer" data-category="national">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=10" alt="Presiden hadiri rapat kabinet" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-landmark text-red-600"></i>
+                  Presiden Hadiri Rapat Kabinet Pembangunan Ekonomi Digital
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Nasional</span>
+                  <span>29 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Presiden memimpin rapat kabinet membahas strategi percepatan transformasi digital nasional. Agenda ini mencakup pengembangan infrastruktur digital dan peningkatan literasi masyarakat di era industri 4.0.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=8" class="block no-underline text-inherit cursor-pointer" data-category="economy">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=11" alt="Harga minyak dunia naik" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-chart-line text-green-600"></i>
+                  Harga Minyak Dunia Naik, Pengaruh Terhadap Pasar Indonesia
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Ekonomi</span>
+                  <span>29 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Kenaikan harga minyak dunia berdampak signifikan terhadap inflasi domestik. Pemerintah mengantisipasi dengan diversifikasi energi terbarukan dan penguatan cadangan devisa nasional.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=9" class="block no-underline text-inherit cursor-pointer" data-category="sports">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=12" alt="Timnas U-23 persiapan" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-futbol text-green-600"></i>
+                  Timnas U-23 Persiapkan Diri untuk Laga Persahabatan Internasional
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Olahraga</span>
+                  <span>29 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Skuad Garuda Muda intensif menjalani pemusatan latihan di Jakarta. Pelatih fokus pada pengembangan strategi permainan dan fisik pemain menghadapi turnamen regional mendatang.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=10" class="block no-underline text-inherit cursor-pointer" data-category="technology">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=13" alt="Startup lokal luncurkan aplikasi AI" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-microchip text-blue-600"></i>
+                  Startup Lokal Luncurkan Aplikasi AI untuk UMKM
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Teknologi</span>
+                  <span>29 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Inovasi teknologi kecerdasan buatan membantu pelaku usaha kecil menengah. Aplikasi ini menyediakan analisis pasar otomatis dan rekomendasi strategi pemasaran berbasis data.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=11" class="block no-underline text-inherit cursor-pointer" data-category="entertainment">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=14" alt="Film Indonesia sukses box office" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-film text-orange-600"></i>
+                  Film Indonesia Raih Kesuksesan di Box Office Nasional
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Hiburan</span>
+                  <span>29 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Karya sinema tanah air mencatat rekor penonton tertinggi sepanjang tahun. Film ini mengangkat tema keberagaman budaya dan mendapat apresiasi dari kritikus film internasional.</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="news-detail.html?id=12" class="block no-underline text-inherit cursor-pointer" data-category="international">
+            <article class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div class="relative">
+                <img src="https://picsum.photos/400/220?random=15" alt="Dunia soroti kebijakan energi Indonesia" class="w-full h-48 object-cover rounded-t-lg" onerror="imgFallback(this)">
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-lg line-clamp-2 mb-2 flex items-center gap-2">
+                  <i class="fas fa-globe text-purple-600"></i>
+                  Dunia Soroti Kebijakan Energi Baru Terbarukan Indonesia
+                </h3>
+                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                  <span class="bg-red-100 text-primary px-2 py-1 rounded text-xs font-medium">Internasional</span>
+                  <span>29 Sep 2025</span>
+                </div>
+                <p class="text-gray-700 text-sm line-clamp-3">Komitmen Indonesia dalam transisi energi mendapat perhatian global. Negara-negara maju memberikan dukungan teknis untuk pengembangan panel surya dan turbin angin skala besar.</p>
+              </div>
+            </article>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-gray-200 py-8" style="font-family: 'Poppins', sans-serif;">
+    <div class="max-w-6xl mx-auto px-4">
+      <!-- Social Media Section -->
+      <div class="text-center mb-6">
+        <p class="text-gray-400 mb-3 text-sm font-medium">Find us on:</p>
+        <div class="flex justify-center space-x-4">
+          <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">
+            <i class="fab fa-facebook-f text-lg"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">
+            <i class="fab fa-twitter text-lg"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">
+            <i class="fab fa-tiktok text-lg"></i>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">
+            <i class="fab fa-youtube text-lg"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links Section -->
+      <div class="flex flex-wrap justify-center items-center gap-3 mb-6 text-sm">
+        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Site Map</a>
+        <span class="text-gray-600">|</span>
+        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">About Us</a>
+        <span class="text-gray-600">|</span>
+        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Contact Us</a>
+        <span class="text-gray-600">|</span>
+        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Cyber Media Guidelines</a>
+        <span class="text-gray-600">|</span>
+        <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Disclaimers</a>
+      </div>
+
+      <!-- Copyright -->
+      <div class="text-center mb-4">
+        <p class="text-gray-500 text-sm">© 2025 Nusantara News Portal | All Rights Reserved</p>
+      </div>
+
+      <!-- Group Member Text -->
+      <div class="text-center mb-4">
+        <p class="text-gray-600 text-xs">A Group Member of Nusantara Digital Network News Portal</p>
+      </div>
+
+      <!-- Sponsor Line -->
+      <div class="border-t border-gray-700 pt-4">
+        <div class="flex justify-center items-center space-x-6">
+          <span class="text-gray-500 text-xs font-medium">Abdul Aziz Al Harists</span>
+          <div class="w-px h-3 bg-gray-600"></div>
+          <span class="text-gray-500 text-xs font-medium">Zerion Project</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    /* Image fallback: replace broken images with inline SVG placeholder */
+    function imgFallback(img){
+      if (!img) return;
+      // simple SVG placeholder with category text from alt (if available)
+      const alt = img.getAttribute('alt') || 'image';
+      const svg = encodeURIComponent(
+        `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='720'>
+          <rect width='100%' height='100%' fill='#f0f0f0'/>
+          <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#c0c0c0' font-size='28' font-family='Arial, sans-serif'>${alt}</text>
+        </svg>`
+      );
+      img.src = `data:image/svg+xml;charset=UTF-8,${svg}`;
+      img.onerror = null;
+    }
+
+    // NAV: filter by category
+    const navLinks = document.querySelectorAll('#navLinks a');
+    navLinks.forEach(link=>{
+      link.addEventListener('click', (e)=>{
+        e.preventDefault();
+        navLinks.forEach(l=>l.classList.remove('active'));
+        link.classList.add('active');
+        const cat = link.dataset.cat || 'all';
+        filterCategory(cat);
+        // Close mobile menu after selection
+        document.getElementById('navLinks').classList.remove('show');
+      });
+    });
+
+    // Burger menu toggle
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navLinksEl = document.getElementById('navLinks');
+    burgerBtn.addEventListener('click', ()=>{
+      navLinksEl.classList.toggle('show');
+    });
+
+    function filterCategory(cat){
+      const cards = document.querySelectorAll('#articles a[data-category]');
+      cards.forEach(card=>{
+        const cardCat = card.dataset.category || 'uncategorized';
+        if(cat === 'all' || cat === '' || cardCat === cat){
+          card.style.display = '';
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+        } else {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.95)';
+        }
+      });
+    }
+
+    // Search (simple client-side search by title/content)
+    document.getElementById('searchBtn').addEventListener('click', ()=>{
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('#articles .card');
+      if(!q){
+        cards.forEach(c=>c.style.display='');
+        return;
+      }
+      cards.forEach(card=>{
+        const text = (card.innerText || '').toLowerCase();
+        card.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+
+    // Slider controls
+    const slidesContainer = document.getElementById('slides');
+    const sliderButtons = document.querySelectorAll('.slider-controls button');
+    sliderButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=> {
+        const src = btn.dataset.src;
+        // replace image in slides
+        slidesContainer.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Berita Utama';
+        img.onerror = function(){ imgFallback(this); };
+        slidesContainer.appendChild(img);
+      });
+    });
+
+    // initialize first slide (if slider1.jpg missing, fallback will occur)
+    (function init(){
+      const firstBtn = document.querySelector('.slider-controls button');
+      if(firstBtn) firstBtn.click();
+    })();
+
+    // Accessibility: allow Enter on nav to activate
+    document.querySelectorAll('#navLinks a').forEach(a=>{
+      a.addEventListener('keyup', (e)=>{ if(e.key === 'Enter') a.click(); });
+    });
+  </script>
+
+</body>
+</html>
